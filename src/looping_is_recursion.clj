@@ -67,4 +67,13 @@
 
 
 (defn cut-at-repetition [a-seq]
-  [":("])
+  (loop [result []
+         a-set #{}
+         tail a-seq]
+    (let [f (first tail)
+          r (rest tail)]
+     (if (or (empty? tail)
+             (contains? a-set f))
+       result
+       (recur (conj result f) (conj a-set f) r)))))
+
